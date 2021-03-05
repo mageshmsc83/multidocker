@@ -11,14 +11,14 @@ script:
   - docker run -e CI=true mageshmsc83/react-test npm test
 
 after_success:
-  - docker build -t mageshmsc83/multi-client-10-14 ./client
-  - docker build -t mageshmsc83/multi-nginx-10-14 ./nginx
-  - docker build -t mageshmsc83/multi-server-10-14 ./server
-  - docker build -t mageshmsc83/multi-worker-10-14 ./worker
+  - docker build -t mageshmsc83/multiclient ./client
+  - docker build -t mageshmsc83/multinginx ./nginx
+  - docker build -t mageshmsc83/multiserver ./server
+  - docker build -t mageshmsc83/multiworker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push mageshmsc83/multi-client-10-14
-  - docker push mageshmsc83/multi-nginx-10-14
-  - docker push mageshmsc83/multi-server-10-14
-  - docker push mageshmsc83/multi-worker-10-14
+  - docker push mageshmsc83/multiclient
+  - docker push mageshmsc83/multinginx
+  - docker push mageshmsc83/multiserver
+  - docker push mageshmsc83/multiworker
