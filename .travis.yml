@@ -17,8 +17,21 @@ after_success:
   - docker build -t mageshmsc83/multiworker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those images and push them to docker hub portal
+  # Take those images and push them to docker hub portal now
   - docker push mageshmsc83/multiclient
   - docker push mageshmsc83/multinginx
   - docker push mageshmsc83/multiserver
   - docker push mageshmsc83/multiworker
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-1'
+  app: 'multidocker'
+  env: 'Multidocker-env'
+  bucket_name: 'elasticbeanstalk-us-east-2-306439872146'
+  bucket_path: 'multidocker'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+
